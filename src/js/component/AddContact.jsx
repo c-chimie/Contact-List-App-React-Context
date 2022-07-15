@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { Context } from "../../store/AppContext";
 
 const AddContact = () => {
+	const { store, actions } = useContext(Context);
+	const [name, setName] = useState("");
+	const [email, setEmail] = useState("");
+	const [phone, setPhone] = useState("");
+	const [address, setAddress] = useState("");
 	return (
 		<div className="container">
 			<div>
@@ -12,6 +18,7 @@ const AddContact = () => {
 							type="text"
 							className="form-control"
 							placeholder="Full Name"
+							onChange={(event) => setName(event.target.value)}
 						/>
 					</div>
 					<div className="form-group">
@@ -20,6 +27,7 @@ const AddContact = () => {
 							type="email"
 							className="form-control"
 							placeholder="Enter email"
+							onChange={(event) => setEmail(event.target.value)}
 						/>
 					</div>
 					<div className="form-group">
@@ -28,6 +36,7 @@ const AddContact = () => {
 							type="phone"
 							className="form-control"
 							placeholder="Enter phone"
+							onChange={(event) => setPhone(event.target.value)}
 						/>
 					</div>
 					<div className="form-group">
@@ -36,11 +45,21 @@ const AddContact = () => {
 							type="text"
 							className="form-control"
 							placeholder="Enter address"
+							onChange={(event) => setAddress(event.target.value)}
 						/>
 					</div>
 					<button
 						type="button"
-						className="btn btn-primary form-control">
+						className="btn btn-primary form-control"
+						onClick={() =>
+							actions.addContact({
+								full_name: name,
+								email: email,
+								agenda_slug: "c-chimie",
+								address: address,
+								phone: phone,
+							})
+						}>
 						save
 					</button>
 				</form>
